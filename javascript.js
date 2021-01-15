@@ -82,13 +82,16 @@ map.on('click','hospitals', function(e) {
 map.on('click', 'libraries', function(f) {
     var refLibrary = f.features[0];
     var options = {units: 'miles'};
-    var nearestHospital = turf.nearest(refLibrary, hospitalPoints).toGeoJson;
-    var toLocation = turf.distance(nearestHospital, hospitalPoints, options);
-    var feet= nearestHospital.toFixed(2);
+    var nearestHospital = turf.nearest(refLibrary, hospitalPoints);
+
+    var toLocation = turf.distance(nearestHospital.geometry.coordinates, refLibrary.geometry.coordinates, options).toFixed(2);
+    // var feet= toLocation.toFixed(2);
+
+
   map.getSource('nearest-hospital').setData({
       type: 'FeatureCollection',
       features: [
-        nearestHospital, feet
+        nearestHospital,
       ]
   });
   map.addLayer({
@@ -101,5 +104,6 @@ map.on('click', 'libraries', function(f) {
     }
   }, 'hospitals');
   popup.setLngLat(refLibrary.geometry.coordinates)
-      .setHTML('<b>' + refLibrary.properties.NAME + '</b><br>The nearest hospital is ' + nearestHospital.properties.NAME + ', located at ' + nearestHospital.properties.ADDRESS + '<br>It is located ' + nearestHospital.distance.hospitalPoints)
+      .setHTML('<b>' + refLibrary.properties.NAME + '</b><br>The nearest hospital is ' + nearestHospital.properties.NAME + ', located at ' + nearestHospital.properties.ADDRESS + '<br>It is located ' + toLocation)
       .addTo(map);
+    });
