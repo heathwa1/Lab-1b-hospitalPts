@@ -104,6 +104,6 @@ map.on('click', 'libraries', function(f) {
     }
   }, 'hospitals');
   popup.setLngLat(refLibrary.geometry.coordinates)
-      .setHTML('<b>' + refLibrary.properties.NAME + '</b><br>The nearest hospital is ' + nearestHospital.properties.NAME + ', located at ' + nearestHospital.properties.ADDRESS + '<br>It is located ' + toLocation)
+      .setHTML('<b>' + refLibrary.properties.NAME + '</b><br>The nearest hospital is ' + nearestHospital.properties.NAME + ', located at ' + nearestHospital.properties.ADDRESS+'.' + '<br>It is located ' + toLocation + ' miles from here.')
       .addTo(map);
     });
